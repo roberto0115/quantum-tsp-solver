@@ -52,3 +52,8 @@ quantum-tsp-solver/
     │
     └── solvers/
         └── tsp_qaoa.py        # QAOASolver class: Ansatz training and wave function sampling.
+
+## 👨‍💻 Author
+**Roberto Álvarez Paraja**
+*Double Degree in Physics and Mathematics, University of Oviedo.*
+*Research Project - CTIC Centro Tecnológico (2026).*
