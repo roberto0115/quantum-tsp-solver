@@ -52,7 +52,27 @@ quantum-tsp-solver/
     │
     └── solvers/
         └── tsp_qaoa.py        # QAOASolver class: Ansatz training and wave function sampling.
+        └── tsp_vqe.py        # VQESolver class
 ```
+## 💻 Getting Started
+
+### Prerequisites
+Ensure you have Python 3.8+ installed. It is recommended to use a virtual environment.
+
+```bash
+# Clone the repository
+git clone [https://github.com/YourUsername/quantum-tsp-solver.git](https://github.com/YourUsername/quantum-tsp-solver.git)
+cd quantum-tsp-solver
+
+# Install required dependencies
+pip install -r requirements.txt
+```
+## 🔮 Future Work & Roadmap
+
+* **Hardware & Emulator Benchmarking:** With VQE and QAOA now fully implemented, the next phase involves deploying both pipelines on the QUTE emulator to conduct large-scale comparative performance analyses and scalability testing.
+* **Noise Modeling:** Introduce depolarization and thermal relaxation noise channels to simulate algorithm resilience on current NISQ (Noisy Intermediate-Scale Quantum) devices.
+* **Routing Optimization:** Implement advanced graph pruning and clustering techniques to reduce the necessary qubit count and circuit depth for high-density nodal networks.
+
 ## 👨‍💻 Author
 **Roberto Álvarez Paraja**
 *Double Degree in Physics and Mathematics, University of Oviedo.*
