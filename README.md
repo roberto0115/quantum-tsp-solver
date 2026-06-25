@@ -1,39 +1,54 @@
-# ⚛️ Quantum TSP Solver: QAOA & VQE con PennyLane
+# ⚛️ Quantum TSP Solver: QAOA & VQE with PennyLane
 
-![Quantum TSP Banner](https://img.shields.io/badge/Quantum-TSP%20Solver-blue?style=for-the-badge&logo=python) ![PennyLane](https://img.shields.io/badge/PennyLane-QML-purple?style=for-the-badge)
+![Quantum TSP Banner](https://img.shields.io/badge/Quantum-TSP%20Solver-blue?style=for-the-badge&logo=python) ![PennyLane](https://img.shields.io/badge/PennyLane-QML-purple?style=for-the-badge) ![NetworkX](https://img.shields.io/badge/NetworkX-Graphs-lightgrey?style=for-the-badge)
 
-Este repositorio contiene una implementación rigurosa y puramente cuántica para resolver el **Problema del Viajante (Traveling Salesperson Problem - TSP)**, un clásico problema de optimización combinatoria NP-Hard. El proyecto utiliza algoritmos híbridos variacionales, centrándose especialmente en el **QAOA (Quantum Approximate Optimization Algorithm)**, desarrollados utilizando el framework [PennyLane](https://pennylane.ai/).
+This repository contains a rigorous, purely quantum implementation for solving the **Traveling Salesperson Problem (TSP)**, a classic NP-Hard combinatorial optimization problem. The project leverages hybrid variational quantum algorithms—primarily the **Quantum Approximate Optimization Algorithm (QAOA)**—developed within the [PennyLane](https://pennylane.ai/) quantum machine learning framework.
 
-El objetivo principal de este proyecto es demostrar el modelado completo (End-to-End) de un problema topológico en un sistema cuántico: desde la instanciación clásica del grafo y la matriz de adyacencia, pasando por la estricta formulación QUBO a Hamiltonianos de Ising, hasta la ejecución y sintonización fina del circuito variacional cuántico (Quantum Machine Learning).
-
----
-
-## 🚀 Características y Arquitectura del Proyecto
-
-El proyecto está diseñado bajo los principios de la **Programación Orientada a Objetos (POO)**, garantizando un código modular, escalable e independiente del flujo principal.
-
-1.  **Formulación Rigurosa QUBO $\rightarrow$ Ising:** Mapeo matemático estricto utilizando codificación *One-Hot* ($O(m^2)$ qubits). El sistema garantiza que las restricciones topológicas se traduzcan perfectamente en un paisaje de energía físico.
-2.  **Penalizaciones Dinámicas (Lagrange):** Implementación de multiplicadores dinámicos ($B = 3 \cdot \max(W)$) para penalizar rigurosamente los estados inválidos y forzar al estado base cuántico a ser una matriz de permutación válida ("Sudoku Cuántico").
-3.  **Solver QAOA (Evolución Simulada):** Implementación del algoritmo variacional QAOA con **inicialización adiabática** (ángulos semilla muy cercanos a cero) para evitar fenómenos de gradientes desvanecientes (*Barren Plateaus*) en los optimizadores clásicos.
-4.  **Generación Dinámica de Grafos:** Integración completa con `NetworkX` para generar problemas aleatorios de topología variable y previsualizar la red nodal de distancias.
+The primary objective of this project is to demonstrate an end-to-end topological modeling workflow on a quantum system: from classical graph instantiation and adjacency matrix generation, through strict QUBO-to-Ising Hamiltonian mappings, down to the execution and fine-tuning of variational quantum circuits.
 
 ---
 
-## 📂 Estructura del Repositorio
+## 🚀 Key Features & Architecture
 
-El código fuente está centralizado en la carpeta `src`, separado funcionalmente:
+The codebase is built on **Object-Oriented Programming (OOP)** principles, ensuring a modular, scalable architecture that separates mathematical formulation from quantum execution.
+
+1.  **Rigorous QUBO $\rightarrow$ Ising Mapping:** Strict mathematical mapping using One-Hot encoding, requiring $O(N^2)$ qubits for an $N$-node graph. The system guarantees that topological constraints are perfectly translated into a physical energy landscape.
+2.  **Dynamic Penalty Framework (Lagrange Multipliers):** Implementation of dynamic multipliers ($B = 3 \cdot \max(W)$) to rigorously penalize invalid states. This forces the quantum ground state to represent a valid permutation matrix (the "Quantum Sudoku" constraints).
+3.  **QAOA Solver (Simulated Evolution):** Variational execution using QAOA with **adiabatic initialization** (seed angles initialized close to zero). This strategy mitigates vanishing gradients (*Barren Plateaus*) typically encountered by classical optimizers in deep quantum circuits.
+4.  **Dynamic Graph Generation:** Seamless integration with `NetworkX` to generate randomized graph topologies, extract adjacency matrices, and visualize nodal distance networks.
+
+---
+
+## 📐 Mathematical Formulation
+
+To embed the TSP into a quantum processing unit, the problem is first formulated as a **Quadratic Unconstrained Binary Optimization (QUBO)** problem, which is then mapped to an **Ising Hamiltonian**. 
+
+The cost function $C(x)$ is defined as:
+$$C(x) = \sum_{i,j=1}^{N} W_{ij} \sum_{t=1}^{N} x_{i,t} x_{j, t+1}$$
+
+To ensure a valid tour, hard constraints are applied via penalty terms (Lagrange multipliers):
+* **Time Constraint:** Each node is visited exactly once.
+* **Space Constraint:** At any given time $t$, the salesperson is at exactly one node.
+
+The resulting Hamiltonian $H = H_{cost} + H_{penalty}$ drives the quantum circuit, where the ground state encodes the optimal route.
+
+---
+
+## 📂 Repository Structure
+
+The source code is centralized within the `src` directory, functionally separated for maintainability:
 
 ```text
 quantum-tsp-solver/
 │
-├── README.md                  # Este documento
-├── requirements.txt           # Dependencias del proyecto
-├── main.py                    # Pipeline de orquestación principal
+├── README.md                  # Project documentation
+├── requirements.txt           # Python dependencies
+├── main.py                    # Main orchestration pipeline
 │
 └── src/
     ├── utils/
-    │   ├── graph_generator.py # Clase TSPGraph: Genera grafos, matrices y visualizaciones.
-    │   └── qubo_to_ising.py   # Clase TSPHamiltonianBuilder: Transforma el coste al modelo Ising.
+    │   ├── graph_generator.py # TSPGraph class: Generates graphs, matrices, and viz.
+    │   └── qubo_to_ising.py   # TSPHamiltonianBuilder class: QUBO to Ising mapping.
     │
     └── solvers/
-        └── tsp_qaoa.py        # Clase QAOASolver: Entrena el Ansatz y muestrea la función de onda.
+        └── tsp_qaoa.py        # QAOASolver class: Ansatz training and wave function sampling.
