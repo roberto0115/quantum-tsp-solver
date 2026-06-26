@@ -15,7 +15,7 @@ The codebase is built on **Object-Oriented Programming (OOP)** principles, ensur
 1.  **Rigorous QUBO $\rightarrow$ Ising Mapping:** Strict mathematical mapping using One-Hot encoding, requiring $O(N^2)$ qubits for an $N$-node graph. The system guarantees that topological constraints are perfectly translated into a physical energy landscape.
 2.  **Dynamic Penalty Framework (Lagrange Multipliers):** Implementation of dynamic multipliers ($B = 3 \cdot \max(W)$) to rigorously penalize invalid states. This forces the quantum ground state to represent a valid permutation matrix (the "Quantum Sudoku" constraints).
 3.  **QAOA Solver (Simulated Evolution):** Variational execution using QAOA with **adiabatic initialization** (seed angles initialized close to zero). This strategy mitigates vanishing gradients (*Barren Plateaus*) typically encountered by classical optimizers in deep quantum circuits.
-4.  **Dynamic Graph Generation:** Seamless integration with `NetworkX` to generate randomized graph topologies, extract adjacency matrices, and visualize nodal distance networks.
+
 
 ---
 
