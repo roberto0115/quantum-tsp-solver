@@ -1,0 +1,7 @@
+PennyLane==0.40.0
+PennyLane_Lightning==0.40.0
+networkx==3.4.2
+numpy==1.26.4
+scipy==1.15.1
+matplotlib==3.10.0
+autograd==1.7.0
